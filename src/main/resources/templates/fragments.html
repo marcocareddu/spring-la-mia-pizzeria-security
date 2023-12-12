@@ -31,11 +31,11 @@
 		<div class="card-body">
 			<h5 class="card-title">[[*{name}]]</h5>
 			<p class="card-text">[[*{description}]]</p>
-			<div class="d-flex justify-content-center">
+			<div  class="d-flex justify-content-center">
 				<a class="me-2"
 					th:replace="~{fragments :: button-detail(@{'/detail/' + ${element.id}}, 'Dettaglio')}"></a>
-				<a class="me-2" th:replace="~{fragments :: button-detail(@{'/edit/' + ${element.id}}, 'Modifica')}"></a>
-				<form th:action="@{'/delete/' + ${element.id}}" method="POST">
+				<a sec:authorize="hasAuthority('ADMIN')" class="me-2" th:replace="~{fragments :: button-detail(@{'/edit/' + ${element.id}}, 'Modifica')}"></a>
+				<form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/delete/' + ${element.id}}" method="POST">
 					<button class="btn btn-danger">Elimina</button>
 				</form>
 			</div>
@@ -57,7 +57,7 @@
 			</div>
 
 			<!-- Promos -->
-			<div>
+			<div sec:authorize="hasAuthority('ADMIN')">
 				<h6 class="card-title mt-4">Promozioni Attive</h6>
 				<p th:each="element : ${promos}" class="card-text my-2">[[${element.title}]]</p>
 			</div>
@@ -66,10 +66,10 @@
 			<div class="d-flex justify-content-center">
 				<div class="me-2"><a class="me-2"
 						th:replace="~{fragments :: button-detail(@{'/'}, 'Torna alla lista')}"></a></div>
-				<div class="me-2"><a
+				<div sec:authorize="hasAuthority('ADMIN')" class="me-2"><a
 						th:replace="~{fragments :: button-detail(@{'/edit/' + ${element.id}}, 'Modifica')}"></a></div>
-				<div class="me-2">
-					<form th:action="@{'/delete/' + ${element.id}}" method="POST">
+				<div sec:authorize="hasAuthority('ADMIN')" class="me-2">
+					<form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/delete/' + ${element.id}}" method="POST">
 						<button class="btn btn-danger">Elimina</button>
 					</form>
 				</div>
@@ -79,11 +79,16 @@
 
 	<!-- Header -->
 	<header class="position-fixed container justify-content-between d-flex align-items-center" th:fragment="header">
-		<a th:href="@{/}"><h1>Pizzeria</h1></a>
+		<a th:href="@{/}">
+			<h1>Pizzeria</h1>
+		</a>
 		<div>
-			<a th:insert="~{fragments :: button-detail(@{'/create'}, 'Crea nuova pizza')}"></a>
+			<a sec:authorize="hasAuthority('ADMIN')" th:insert="~{fragments :: button-detail(@{'/create'}, 'Crea nuova pizza')}"></a>
 			<a th:insert="~{fragments :: button-detail(@{'/index-ingredients'}, 'Ingredienti')}"></a>
-			<a th:insert="~{fragments :: button-detail(@{'/promos'}, 'Promozioni')}"></a>
+			<a sec:authorize="hasAuthority('ADMIN')" th:insert="~{fragments :: button-detail(@{'/promos'}, 'Promozioni')}"></a>
+			
+			<a th:if="${#authorization.expression('isAnonymous()')}" th:insert="~{fragments :: button-detail(@{'/login'}, 'Login')}"></a>
+			<a th:if="${#authorization.expression('isAuthenticated()')}" th:insert="~{fragments :: button-detail(@{'/logout'}, 'Logout')}"></a>
 		</div>
 	</header>
 

@@ -97,20 +97,16 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		
 		Role user = new Role("USER");
 		Role admin = new Role("ADMIN");
-		Role god = new Role("GOD");
-		
+	
 		roleService.save(user);
 		roleService.save(admin);
-		roleService.save(god);
-		
+
 		String pass = AuthConfiguration.passwordEncoder().encode("password");
 
 		User testUser = new User("TestUser", pass, user);
 		User testAdmin = new User("TestAdmin", pass, admin);
-		User testGod = new User("TestGod", pass, god);
-		
+
 		userService.save(testUser);
 		userService.save(testAdmin);
-		userService.save(testGod);
 	}
 }

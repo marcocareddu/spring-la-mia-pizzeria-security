@@ -17,11 +17,13 @@ public class AuthConfiguration {
 	 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	 
 		http.authorizeHttpRequests()
-			.requestMatchers("/user/**").hasAnyAuthority("USER")
+			.requestMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")
 			.requestMatchers("/create/**").hasAnyAuthority("ADMIN")
 			.requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
 			.requestMatchers("/edit/**").hasAnyAuthority("ADMIN")
-			.requestMatchers("/god/**").hasAuthority("GOD")
+			.requestMatchers("/promos/**").hasAnyAuthority("ADMIN")
+			.requestMatchers("/ingredients/**").hasAnyAuthority("ADMIN")
+			.requestMatchers("/index-ingredients/**").hasAnyAuthority("ADMIN")
 			.requestMatchers("/**").permitAll()
 			.and().formLogin()
 			.and().logout();
