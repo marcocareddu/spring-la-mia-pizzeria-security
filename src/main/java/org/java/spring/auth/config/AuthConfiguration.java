@@ -3,6 +3,7 @@ package org.java.spring.auth.config;
 import org.java.spring.services.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,10 +17,12 @@ public class AuthConfiguration {
 	 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	 
 		http.authorizeHttpRequests()
-			.requestMatchers("/user/**").hasAuthority("USER")
-			.requestMatchers("/admin/**").hasAuthority("ADMIN")
+			.requestMatchers("/user/**").hasAnyAuthority("USER")
+			.requestMatchers("/create/**").hasAnyAuthority("ADMIN")
+			.requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+			.requestMatchers("/edit/**").hasAnyAuthority("ADMIN")
 			.requestMatchers("/god/**").hasAuthority("GOD")
-			.requestMatchers("/").permitAll()
+			.requestMatchers("/**").permitAll()
 			.and().formLogin()
 			.and().logout();
 			
@@ -36,5 +39,13 @@ public class AuthConfiguration {
 	 return new BCryptPasswordEncoder();
 	 }
 	 
+	 @Bean
+	 DaoAuthenticationProvider authenticationProvider() {
+	  DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 	 
+	  authProvider.setUserDetailsService(userDetailsService());
+	  authProvider.setPasswordEncoder(passwordEncoder());
+	 
+	  return authProvider;
+	 }
 }
