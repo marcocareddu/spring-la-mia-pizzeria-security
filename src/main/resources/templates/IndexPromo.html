@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+	<header th:insert="~{fragments :: header}"></header>
+
+	<div class="container">
+		<div class="title d-flex justify-content-center my-3">
+			<h1>Le Promozioni:</h1>
+		</div>
+
+
+		<!-- If list is empty -->
+		<th:block th:if="${list.isEmpty()}">
+			<div class="title d-flex justify-content-center mt-5">
+				<h1>Non è presente nessuna promozione</h1>
+			</div>
+		</th:block>
+
+		<!-- If list contains elements -->
+<th:block th:if="${!list.isEmpty()}">
+			<div class="search-container">
+
+			<div 
+			th:each="promo : ${list}"
+			th:object="${promo}"
+			class="card-container d-flex align-items-center justify-content-between my-1" 
+			>
+				<span th:text="*{title}"></span>
+					<form th:action="@{'/promos/delete/' + *{id}}" method="POST">
+						<button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+					</form>
+			</div>
+			</div>
+		</th:block>
+
+		<div>
+			<a th:insert="~{fragments :: button-detail(@{'/promos/create'}, 'Aggiungi promozione')}"></a>
+		</div>
+	</div>
+</body>
+
+</html>
