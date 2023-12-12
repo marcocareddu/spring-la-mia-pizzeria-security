@@ -3,6 +3,7 @@ package org.java.spring;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.java.spring.auth.Role;
 import org.java.spring.services.IngredientService;
 import org.java.spring.services.PizzaService;
 import org.java.spring.services.PromoService;
@@ -84,5 +85,10 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		promoService.save(new Promo(LocalDate.parse("2022-12-30"), LocalDate.parse("2022-12-31"), "Promo Fine Anno", pizzas.get(1)));
 		promoService.save(new Promo(LocalDate.parse("2024-01-07"), LocalDate.parse("2024-01-31"), "Promo Nuovo Anno", pizzas.get(2)));
 		promoService.save(new Promo(LocalDate.parse("2024-02-01"), LocalDate.parse("2024-02-20"), "Promo Carnevale", pizzas.get(3)));
+		
+		Role user = new Role("USER");
+		Role admin = new Role("ADMIN");
+		Role god = new Role("GOD");
+		
 	}
 }

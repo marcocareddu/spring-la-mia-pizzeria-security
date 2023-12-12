@@ -19,7 +19,6 @@ public class Role {
 	public Role(){}
 	public Role(String name){
 		setName(name);
-		
 	}
 	public int getId() {
 		return id;
