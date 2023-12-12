@@ -25,24 +25,21 @@
 	</a>
 
 	<!-- multiple Cards -->
-	<div th:fragment="card(list)" th:each="element : ${list}" th:object="${element}" class="card col m-3"
+	<div th:fragment="card(list)" th:each="element : ${list}" th:object="${element}" class="card col m-3 indexCard"
 		style="width: 18rem; padding: 0;">
 		<img th:src="@{*{img}}" class="card-img-top multi-img" th:alt="*{name}">
-		<div class="card-body">
-			<h5 class="card-title">[[*{name}]]</h5>
-			<p class="card-text">[[*{description}]]</p>
-			<div class="d-flex justify-content-center">
-
+		<div class="card-body d-flex flex-column">
+			<h5 class="card-title"><i class="fa-solid fa-pizza-slice text-danger"></i> [[*{name}]]</h5>
+			<p class="card-text flex-grow-1">[[*{description}]]</p>
+			<div class="mt-auto d-flex justify-content-center">
 				<div class="me-2">
 					<a th:replace="~{fragments :: button-detail(@{'/detail/' + ${element.id}}, 'Dettaglio')}"></a>
 				</div>
-
 				<div class="me-2">
 					<a sec:authorize="hasAuthority('ADMIN')"
 						th:replace="~{fragments :: button-detail(@{'/edit/' + ${element.id}}, 'Modifica')}"></a>
 				</div>
-
-				<form class="me-2" sec:authorize="hasAuthority('ADMIN')" th:action="@{'/delete/' + ${element.id}}"
+				<form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/delete/' + ${element.id}}"
 					method="POST">
 					<button class="btn btn-danger">Elimina</button>
 				</form>
@@ -53,8 +50,8 @@
 	<!-- Single Card -->
 	<div th:fragment="singleCard(element)" th:object="${element}" class="card col-6 mt-5 p-0">
 		<img th:src="@{*{img}}" class="card-img-top img-fluid" th:alt="*{name}">
-		<div class="card-body">
-			<h4 class="card-title">[[*{name}]]</h4>
+		<div class="card-body text-center">
+			<h4 class="card-title"><i class="fa-solid fa-pizza-slice text-danger"></i> [[*{name}]]</h4>
 			<p class="card-text">[[*{description}]]</p>
 			<h6 class="text-danger">Prezzo €[[*{price}]]</h6>
 
@@ -72,7 +69,7 @@
 
 			<!-- Single Card Buttons-->
 			<div class="d-flex justify-content-center">
-				<div class="me-2"><a class="me-2"
+				<div class="m-2"><a class="me-2"
 						th:replace="~{fragments :: button-detail(@{'/'}, 'Torna alla lista')}"></a></div>
 				<div sec:authorize="hasAuthority('ADMIN')" class="me-2"><a
 						th:replace="~{fragments :: button-detail(@{'/edit/' + ${element.id}}, 'Modifica')}"></a></div>
@@ -88,22 +85,22 @@
 	<!-- Header -->
 	<header class="position-fixed shadow d-flex align-items-center" th:fragment="header">
 		<div class="container justify-content-between d-flex align-items-center">
-					<a th:href="@{/}">
-			<h1><i class="fa-solid fa-pizza-slice text-danger"></i></h1>
-		</a>
-		<div class="d-flex">
-			<div sec:authorize="hasAuthority('ADMIN')" class="me-1">
-				<a th:insert="~{fragments :: button-detail(@{'/create'}, 'Crea nuova pizza')}"></a>
-				<a th:insert="~{fragments :: button-detail(@{'/index-ingredients'}, 'Ingredienti')}"></a>
-				<a th:insert="~{fragments :: button-detail(@{'/promos'}, 'Promozioni')}"></a>
+			<a th:href="@{/}">
+				<h1><i class="fa-solid fa-pizza-slice text-danger"></i></h1>
+			</a>
+			<div class="d-flex">
+				<div sec:authorize="hasAuthority('ADMIN')" class="me-1">
+					<a th:insert="~{fragments :: button-detail(@{'/create'}, 'Crea nuova pizza')}"></a>
+					<a th:insert="~{fragments :: button-detail(@{'/index-ingredients'}, 'Ingredienti')}"></a>
+					<a th:insert="~{fragments :: button-detail(@{'/promos'}, 'Promozioni')}"></a>
+				</div>
+				<a th:if="${#authorization.expression('isAnonymous()')}"
+					th:insert="~{fragments :: button-detail(@{'/login'}, 'Login')}"></a>
+				<a th:if="${#authorization.expression('isAuthenticated()')}"
+					th:insert="~{fragments :: button-detail(@{'/logout'}, 'Logout')}"></a>
 			</div>
-			<a th:if="${#authorization.expression('isAnonymous()')}"
-				th:insert="~{fragments :: button-detail(@{'/login'}, 'Login')}"></a>
-			<a th:if="${#authorization.expression('isAuthenticated()')}"
-				th:insert="~{fragments :: button-detail(@{'/logout'}, 'Logout')}"></a>
-		</div>
-			
-			
+
+
 		</div>
 
 	</header>

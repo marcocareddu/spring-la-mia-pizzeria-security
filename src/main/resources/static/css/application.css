@@ -19,6 +19,12 @@ header {
 	z-index: 1;
 }
 
+.card-title{
+	text-align: center !important;
+	color: #DC3545;
+	font-weight: bold !important;
+}
+
 img {
 	height: 120px;
 	width: 150px;
@@ -32,4 +38,15 @@ img {
 
 ul li {
 list-style-type: none;
+}
+
+.indexCard {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.indexCard:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
