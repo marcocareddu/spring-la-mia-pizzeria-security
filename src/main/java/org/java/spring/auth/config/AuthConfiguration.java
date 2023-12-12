@@ -21,6 +21,7 @@ public class AuthConfiguration {
 			.requestMatchers("/create/**").hasAnyAuthority("ADMIN")
 			.requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
 			.requestMatchers("/edit/**").hasAnyAuthority("ADMIN")
+			.requestMatchers("/delete/**").hasAnyAuthority("ADMIN")
 			.requestMatchers("/promos/**").hasAnyAuthority("ADMIN")
 			.requestMatchers("/ingredients/**").hasAnyAuthority("ADMIN")
 			.requestMatchers("/index-ingredients/**").hasAnyAuthority("ADMIN")

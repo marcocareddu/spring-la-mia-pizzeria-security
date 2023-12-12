@@ -31,10 +31,11 @@
 		<div class="card-body">
 			<h5 class="card-title">[[*{name}]]</h5>
 			<p class="card-text">[[*{description}]]</p>
-			<div  class="d-flex justify-content-center">
+			<div class="d-flex justify-content-center">
 				<a class="me-2"
 					th:replace="~{fragments :: button-detail(@{'/detail/' + ${element.id}}, 'Dettaglio')}"></a>
-				<a sec:authorize="hasAuthority('ADMIN')" class="me-2" th:replace="~{fragments :: button-detail(@{'/edit/' + ${element.id}}, 'Modifica')}"></a>
+				<a sec:authorize="hasAuthority('ADMIN')" class="me-2"
+					th:replace="~{fragments :: button-detail(@{'/edit/' + ${element.id}}, 'Modifica')}"></a>
 				<form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/delete/' + ${element.id}}" method="POST">
 					<button class="btn btn-danger">Elimina</button>
 				</form>
@@ -82,13 +83,16 @@
 		<a th:href="@{/}">
 			<h1>Pizzeria</h1>
 		</a>
-		<div>
-			<a sec:authorize="hasAuthority('ADMIN')" th:insert="~{fragments :: button-detail(@{'/create'}, 'Crea nuova pizza')}"></a>
-			<a th:insert="~{fragments :: button-detail(@{'/index-ingredients'}, 'Ingredienti')}"></a>
-			<a sec:authorize="hasAuthority('ADMIN')" th:insert="~{fragments :: button-detail(@{'/promos'}, 'Promozioni')}"></a>
-			
-			<a th:if="${#authorization.expression('isAnonymous()')}" th:insert="~{fragments :: button-detail(@{'/login'}, 'Login')}"></a>
-			<a th:if="${#authorization.expression('isAuthenticated()')}" th:insert="~{fragments :: button-detail(@{'/logout'}, 'Logout')}"></a>
+		<div class="d-flex">
+			<div sec:authorize="hasAuthority('ADMIN')" class="me-1">
+				<a th:insert="~{fragments :: button-detail(@{'/create'}, 'Crea nuova pizza')}"></a>
+				<a th:insert="~{fragments :: button-detail(@{'/index-ingredients'}, 'Ingredienti')}"></a>
+				<a th:insert="~{fragments :: button-detail(@{'/promos'}, 'Promozioni')}"></a>
+			</div>
+			<a th:if="${#authorization.expression('isAnonymous()')}"
+				th:insert="~{fragments :: button-detail(@{'/login'}, 'Login')}"></a>
+			<a th:if="${#authorization.expression('isAuthenticated()')}"
+				th:insert="~{fragments :: button-detail(@{'/logout'}, 'Logout')}"></a>
 		</div>
 	</header>
 
