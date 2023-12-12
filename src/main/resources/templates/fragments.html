@@ -26,7 +26,7 @@
 
 	<!-- multiple Cards -->
 	<div th:fragment="card(list)" th:each="element : ${list}" th:object="${element}" class="card col m-3"
-		style="width: 18rem;">
+		style="width: 18rem; padding: 0;">
 		<img th:src="@{*{img}}" class="card-img-top multi-img" th:alt="*{name}">
 		<div class="card-body">
 			<h5 class="card-title">[[*{name}]]</h5>
@@ -51,7 +51,7 @@
 	</div>
 
 	<!-- Single Card -->
-	<div th:fragment="singleCard(element)" th:object="${element}" class="card col-6 mt-5">
+	<div th:fragment="singleCard(element)" th:object="${element}" class="card col-6 mt-5 p-0">
 		<img th:src="@{*{img}}" class="card-img-top img-fluid" th:alt="*{name}">
 		<div class="card-body">
 			<h4 class="card-title">[[*{name}]]</h4>
