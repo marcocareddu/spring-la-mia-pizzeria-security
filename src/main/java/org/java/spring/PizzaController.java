@@ -48,9 +48,12 @@ public class PizzaController {
 
 	@GetMapping("/create")
 	public String create(Model model) {
+		List<Ingredient> ingredients = ingredientService.findAll();
 
 		model.addAttribute("pizza", new Pizza());
 		model.addAttribute("action", "create");
+		model.addAttribute("ingredients", ingredients);
+		
 		return "form";
 	}
 	@PostMapping("/create")

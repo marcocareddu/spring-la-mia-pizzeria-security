@@ -86,9 +86,10 @@
 	</div>
 
 	<!-- Header -->
-	<header class="position-fixed container justify-content-between d-flex align-items-center" th:fragment="header">
-		<a th:href="@{/}">
-			<h1>Pizzeria</h1>
+	<header class="position-fixed shadow d-flex align-items-center" th:fragment="header">
+		<div class="container justify-content-between d-flex align-items-center">
+					<a th:href="@{/}">
+			<h1><i class="fa-solid fa-pizza-slice text-danger"></i></h1>
 		</a>
 		<div class="d-flex">
 			<div sec:authorize="hasAuthority('ADMIN')" class="me-1">
@@ -101,6 +102,10 @@
 			<a th:if="${#authorization.expression('isAuthenticated()')}"
 				th:insert="~{fragments :: button-detail(@{'/logout'}, 'Logout')}"></a>
 		</div>
+			
+			
+		</div>
+
 	</header>
 
 </body>

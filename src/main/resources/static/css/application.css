@@ -6,6 +6,10 @@
 	box-sizing: border-box;
 }
 
+a {
+	text-decoration: none;
+}
+
 header {
 	height: 80px;
 	background-color: #fff;
