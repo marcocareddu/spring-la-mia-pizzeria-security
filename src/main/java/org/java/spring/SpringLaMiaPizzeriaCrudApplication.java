@@ -2,11 +2,13 @@ package org.java.spring;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import org.java.spring.auth.Role;
+import org.java.spring.auth.User;
 import org.java.spring.services.IngredientService;
 import org.java.spring.services.PizzaService;
 import org.java.spring.services.PromoService;
+import org.java.spring.services.RoleService;
+import org.java.spring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +25,12 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PromoService promoService;
+	
+	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
+	private UserService userService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringLaMiaPizzeriaCrudApplication.class, args);
@@ -90,5 +98,16 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		Role admin = new Role("ADMIN");
 		Role god = new Role("GOD");
 		
+		roleService.save(user);
+		roleService.save(admin);
+		roleService.save(god);
+
+		User testUser = new User("TestUser", "pass", user);
+		User testAdmin = new User("TestAdmin", "pass", admin);
+		User testGod = new User("TestGod", "pass", god);
+		
+		userService.save(testUser);
+		userService.save(testAdmin);
+		userService.save(testGod);
 	}
 }
