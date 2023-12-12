@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.java.spring.auth.Role;
 import org.java.spring.auth.User;
+import org.java.spring.auth.config.AuthConfiguration;
 import org.java.spring.services.IngredientService;
 import org.java.spring.services.PizzaService;
 import org.java.spring.services.PromoService;
@@ -101,10 +102,12 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		roleService.save(user);
 		roleService.save(admin);
 		roleService.save(god);
+		
+		String pass = AuthConfiguration.passwordEncoder().encode("password");
 
-		User testUser = new User("TestUser", "pass", user);
-		User testAdmin = new User("TestAdmin", "pass", admin);
-		User testGod = new User("TestGod", "pass", god);
+		User testUser = new User("TestUser", pass, user);
+		User testAdmin = new User("TestAdmin", pass, admin);
+		User testGod = new User("TestGod", pass, god);
 		
 		userService.save(testUser);
 		userService.save(testAdmin);
