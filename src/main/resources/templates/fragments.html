@@ -32,11 +32,18 @@
 			<h5 class="card-title">[[*{name}]]</h5>
 			<p class="card-text">[[*{description}]]</p>
 			<div class="d-flex justify-content-center">
-				<a class="me-2"
-					th:replace="~{fragments :: button-detail(@{'/detail/' + ${element.id}}, 'Dettaglio')}"></a>
-				<a sec:authorize="hasAuthority('ADMIN')" class="me-2"
-					th:replace="~{fragments :: button-detail(@{'/edit/' + ${element.id}}, 'Modifica')}"></a>
-				<form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/delete/' + ${element.id}}" method="POST">
+
+				<div class="me-2">
+					<a th:replace="~{fragments :: button-detail(@{'/detail/' + ${element.id}}, 'Dettaglio')}"></a>
+				</div>
+
+				<div class="me-2">
+					<a sec:authorize="hasAuthority('ADMIN')"
+						th:replace="~{fragments :: button-detail(@{'/edit/' + ${element.id}}, 'Modifica')}"></a>
+				</div>
+
+				<form class="me-2" sec:authorize="hasAuthority('ADMIN')" th:action="@{'/delete/' + ${element.id}}"
+					method="POST">
 					<button class="btn btn-danger">Elimina</button>
 				</form>
 			</div>
